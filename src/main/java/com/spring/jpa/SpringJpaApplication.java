@@ -1,11 +1,19 @@
 package com.spring.jpa;
 
+import com.spring.jpa.dao.DepartmentRepository;
+import com.spring.jpa.dao.EmployeeRepository;
 import com.spring.jpa.dto.Department;
+import com.spring.jpa.dto.Employee;
 import com.spring.jpa.service.DepartmentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.List;
 
 @SpringBootApplication
 public class SpringJpaApplication implements CommandLineRunner {
@@ -15,27 +23,43 @@ public class SpringJpaApplication implements CommandLineRunner {
 	}
 
 	@Autowired
-	DepartmentService departmentService;
+	DepartmentRepository departmentRepository;
+
+	@Autowired
+	EmployeeRepository employeeRepository;
 
 	@Override
 	public void run(String... args) throws Exception {
+
 		System.out.println("## Get all Departments");
-		departmentService.getAllDepartments().stream().forEach(p-> System.out.println(p));
+		departmentRepository.findAll().forEach(p-> System.out.println(p));
 
 		System.out.println("## Get Department by Id");
-		System.out.println(departmentService.getDepartment(4));
-
-		System.out.println("## Delete Department");
-		departmentService.deleteDepartment(5);
+		System.out.println(departmentRepository.findById(1));
 
 		System.out.println("## Adding a Department");
 		Department department = new Department();
-		department.setDepartmentId(6);
+		//department.setDepartmentId(6);
 		department.setDepartmentName("Test Department");
 		department.setDepartmentFunction("Testing");
-		Integer id = departmentService.addDepartment(department).getDepartmentId();
-		System.out.println("Department added with Id: "+id);
 
+		Employee employee = new Employee();
+		//employee.setEmployeeId(8000);
+		employee.setEmployeeName("John Abraham");
+		employee.setHireDate(new Date());
+		employee.setSalary(123455.23);
+		employee.setDeptId(6);
 
+		department.getEmployees().add(employee);
+
+		Department savedDept = departmentRepository.save(department);
+		System.out.println("Department added is: "+savedDept);
+
+		System.out.println("## Delete Department");
+		departmentRepository.delete(savedDept);
+
+		System.out.println("## Find an Employee");
+		System.out.println(employeeRepository.findById(7839));
 	}
 }
+
