@@ -29,6 +29,6 @@ public class Employee {
     @Column(name = "dept_id")
     private  Integer deptId;
 
-    @OneToOne(mappedBy = "deptId")
-    private Department department;
+//    @OneToOne(mappedBy = "deptId")
+//    private Department department;
 }
