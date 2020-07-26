@@ -9,7 +9,6 @@ import java.util.Date;
 @Entity
 @Table(name = "t_employee")
 @NamedQuery(name = "GetManagers", query = "select e from Employee e where e.job=:job")
-
 public class Employee {
 
     @Id
@@ -31,6 +30,14 @@ public class Employee {
     @Column(name = "dept_id")
     private  Integer deptId;
 
+    @Transient
+    private Double tax;
+
 //    @OneToOne(mappedBy = "deptId")
 //    private Department department;
+
+    @PostLoad
+    private void calculateTax(){
+        setTax(getSalary() * 0.12);
+    }
 }

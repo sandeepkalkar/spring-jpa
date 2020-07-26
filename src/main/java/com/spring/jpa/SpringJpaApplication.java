@@ -10,10 +10,7 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 @SpringBootApplication
 public class SpringJpaApplication implements CommandLineRunner {
@@ -78,6 +75,12 @@ public class SpringJpaApplication implements CommandLineRunner {
 
 		// Names Queries
 		departmentService.getEmployeeByJob("PRESIDENT");
+
+		//Managed Vs Detached
+		Optional<Employee> employee1 = employeeRepository.findById(7839);
+		departmentService.updateSalary(employee1.get(),1.1);
+
+
 	}
 }
 

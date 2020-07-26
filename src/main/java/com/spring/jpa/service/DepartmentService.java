@@ -52,4 +52,10 @@ public class DepartmentService {
     public void getEmployeeByJob(String job){
         System.out.println("Employees by Job ("+job+")"+dynamicQueryDAO.getEmployeeByJob(job));
     }
+
+    public void updateSalary(Employee employee, Double increase){
+        System.out.println("Before: "+employee);
+        dynamicQueryDAO.updateSalary(employee,increase);
+        System.out.println("After: "+employee);
+    }
 }

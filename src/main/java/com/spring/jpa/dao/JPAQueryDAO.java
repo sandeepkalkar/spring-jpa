@@ -5,9 +5,8 @@ import com.spring.jpa.dto.Item;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import javax.persistence.EntityManager;
-import javax.persistence.Query;
-import javax.persistence.TypedQuery;
+import javax.persistence.*;
+import javax.transaction.Transactional;
 import java.util.List;
 
 @Repository
@@ -68,6 +67,15 @@ public class JPAQueryDAO {
         List<Employee> employees = query.getResultList();
 
         return  employees;
+    }
+
+    // Managed Vs Detached
+    @Transactional
+    public Employee updateSalary(Employee employee, Double increase){
+        entityManager.detach(employee);
+        Employee employee1 =  entityManager.merge(employee); //Managed
+        employee1.setSalary(employee.getSalary()*increase);//10% Raise
+        return employee1;
     }
 
 }
