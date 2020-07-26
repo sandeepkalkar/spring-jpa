@@ -28,6 +28,9 @@ public class SpringJpaApplication implements CommandLineRunner {
 	@Autowired
 	EmployeeRepository employeeRepository;
 
+	@Autowired
+	DepartmentService departmentService;
+
 	@Override
 	public void run(String... args) throws Exception {
 
@@ -60,6 +63,21 @@ public class SpringJpaApplication implements CommandLineRunner {
 
 		System.out.println("## Find an Employee");
 		System.out.println(employeeRepository.findById(7839));
+
+		//Dynamic Query Result
+		departmentService.getDynamicEmployeeWithinSalaryRange(10.2, 175.6);
+
+		//Typed Query result
+		departmentService.getTypedEmployeeWithinSalaryRange(10.2, 175.6);
+
+		//Positional Parameter Biding result
+		departmentService.getPositionalBindingEmployeeWithinSalaryRange(2000D,2500D);
+
+		//Named Parameter Biding result
+		departmentService.getNamedBindingEmployeeWithinSalaryRange(2000D,2500D);
+
+		// Names Queries
+		departmentService.getEmployeeByJob("PRESIDENT");
 	}
 }
 

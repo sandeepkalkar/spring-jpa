@@ -1,12 +1,11 @@
 package com.spring.jpa.service;
 
-import com.spring.jpa.dao.DepartmentRepository;
-import com.spring.jpa.dto.Department;
+import com.spring.jpa.dao.JPAQueryDAO;
+import com.spring.jpa.dto.Employee;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class DepartmentService {
@@ -32,4 +31,25 @@ public class DepartmentService {
 //
 //        departmentRepository.delete(getDepartment(departmentId).get());
 //    }
+
+    @Autowired
+    JPAQueryDAO dynamicQueryDAO;
+
+    public void getDynamicEmployeeWithinSalaryRange(Double min, Double max){
+        System.out.println("Dynamic Query Result: "+dynamicQueryDAO.getDynamicEmployeeWithinSalaryRange(min,max));
+    }
+    public void getTypedEmployeeWithinSalaryRange(Double min, Double max){
+        System.out.println("Typed Query Result: "+dynamicQueryDAO.getTypedEmployeeWithinSalaryRange(min,max));
+    }
+
+    public void getPositionalBindingEmployeeWithinSalaryRange(Double min, Double max){
+        System.out.println("Positional Parameter Biding result: "+dynamicQueryDAO.getPositionalBindingEmployeeWithinSalaryRange(min,max));
+    }
+    public void getNamedBindingEmployeeWithinSalaryRange(Double min, Double max){
+        System.out.println("Named Parameter Biding result: "+dynamicQueryDAO.getNamedBindingEmployeeWithinSalaryRange(min,max));
+    }
+
+    public void getEmployeeByJob(String job){
+        System.out.println("Employees by Job ("+job+")"+dynamicQueryDAO.getEmployeeByJob(job));
+    }
 }

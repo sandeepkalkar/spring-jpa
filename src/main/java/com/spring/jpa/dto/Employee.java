@@ -8,6 +8,8 @@ import java.util.Date;
 @Data
 @Entity
 @Table(name = "t_employee")
+@NamedQuery(name = "GetManagers", query = "select e from Employee e where e.job=:job")
+
 public class Employee {
 
     @Id
